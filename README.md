@@ -29,3 +29,18 @@ Rust学習用レポジトリ
 - [ハッシュテーブル](./rust_hash_table/README.md)
 - [クイックソート](./rust_quick_sort/README.md)
 - [再帰を使用しないシェルソート](./rust_non_recursive_shell_sort/README.md)
+
+## 応用
+- [リンクドリスト](./rust_list_package/README.md)
+- [リングバッファ](./rust_ring_package/README.md)
+- [キュー](./rust_queue_package/README.md)
+- [スタック](./rust_stack_package/README.md)
+- [平衡二分木](./rust_balanced_tree_package/README.md)
+- [ハッシュテーブル](./rust_hash_table_package/README.md)
+- [ソート](./rust_sort_package/README.md)
+- [スレッド](./rust_threading_example/README.md)
+- [Async/Await](./rust_async_await_example/README.md)
+- [排他処理](./rust_mutex_example/README.md)
+- [メッセージボックス](./rust_message_box_example/README.md)
+
+
