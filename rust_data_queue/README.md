@@ -5,37 +5,32 @@ Rustでキュー（ `queue` ）構造を実装する基本的な方法は、2つ
 ## サンプルプログラム
 ```rust
 struct Queue<T> {
-    front: Vec<T>,
-    back: Vec<T>,
+    elements: Vec<T>,
 }
 
 impl<T> Queue<T> {
     // 新しいキューを生成する関数
     fn new() -> Self {
         Queue {
-            front: Vec::new(),
-            back: Vec::new(),
+            elements: Vec::new(),
         }
     }
 
     // キューの背面に要素を追加する関数
     fn enqueue(&mut self, item: T) {
-        self.back.push(item);
+        self.elements.push(item);
     }
 
     // キューの前面から要素を取り出す関数
     fn dequeue(&mut self) -> Option<T> {
-        if self.front.is_empty() {
-            // 前面が空の場合、背面を逆順にして前面に移動します
-            if self.back.is_empty() {
-                return None;
-            }
-            std::mem::swap(&mut self.front, &mut self.back);
-            self.front.reverse();
+        if self.elements.len() == 0 {
+            return None;
         }
-
         // 前面から要素を取り出します
-        self.front.pop()
+        // remove()は、T型を返す
+        let value = self.elements.remove(0);
+        // valueはT型なのでSome(T)でOption<T>型に変換して返す
+        return Some(value);
     }
 }
 

@@ -23,6 +23,7 @@ impl<T> Stack<T> {
 
     // スタックから要素を取り出す関数
     fn pop(&mut self) -> Option<T> {
+        //Vec::pop()は、Oprion<T>を返す
         self.elements.pop()
     }
 

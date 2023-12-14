@@ -29,23 +29,29 @@ impl<T> LinkedList<T> {
     fn push(&mut self, value: T) {
         // 新しいノードを作成し、そのnextを現在のheadに設定します。
         let new_node = Box::new(Node {
-            value,
+            value: value,
+            // headに代入されているNodeの所有権はhead。
+            // self.headを取り出す（Option<Box<Node<T>>>)
             next: self.head.take(),
         });
         // 新しいノードをリストの新しいheadとして設定します。
+        // new_nodeは<Box<Node<T>>>型なので、Some(new_node)でOption<Box<Node<T>>>型に変換している。
         self.head = Some(new_node);
     }
 
     // リストから要素を取り出すためのpop関数。
     fn pop(&mut self) -> Option<T> {
-        // 現在のheadを取り出し、その値を返す。
-        // この操作は、現在のheadがSomeの場合にのみ実行されます。
-        self.head.take().map(|node| {
-            // 新しいheadを次のノードに設定します。
-            self.head = node.next;
-            // 取り出されたノードの値を返します。
-            node.value
-        })
+        // self.headを取り出す（Option<Box<Node<T>>>)
+        let node = self.head.take();
+        // matchでOption<Box<Node<T>>>をBox<Node<T>>に変換する
+        let node = match node {
+            None => return None,
+            Some(node) => node,
+        };
+        // node.nextはOption<Box<Node<T>>>
+        self.head = node.next;
+        // node.valueをOpion<T>に変換して返す
+        return Some(node.value);
     }
 }
 
@@ -62,6 +68,7 @@ fn main() {
         println!("{}", value);
     }
 }
+
 ```
 
 ジェネリックなシングルリンクドリストを実装しています。pushメソッドを使ってリストの先頭に要素を追加し、popメソッドでリストの先頭から要素を取り出します。main関数では、リストにいくつかの要素を追加し、それらを取り出して表示しています。

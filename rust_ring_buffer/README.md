@@ -5,6 +5,7 @@ Rustでリングバッファ（ `circular buffer` ）を実装するには、固
 ## サンプルプログラム
 ```rust
 struct RingBuffer<T> {
+    // 固定長でNoneを使用するため、Option<T>を使用します。
     buffer: Vec<Option<T>>,
     size: usize,
     start: usize,
@@ -30,6 +31,7 @@ impl<T> RingBuffer<T> {
 
     // バッファにデータを追加する関数。
     fn push(&mut self, item: T) {
+        // T-> Option<T>に変換
         self.buffer[self.end] = Some(item);
         self.end = (self.end + 1) % self.size;
 
@@ -45,6 +47,7 @@ impl<T> RingBuffer<T> {
             // バッファが空の場合はNoneを返します。
             None
         } else {
+            // self.buffer[self.start]を取り出す（Option<T>)
             let result = self.buffer[self.start].take();
             self.start = (self.start + 1) % self.size;
             result
@@ -56,6 +59,7 @@ impl<T> RingBuffer<T> {
         if index >= self.size {
             None
         } else {
+            // self.buffer[self.start + index]の固定参照を返す
             self.buffer[(self.start + index) % self.size].as_ref()
         }
     }
@@ -83,6 +87,7 @@ fn main() {
         println!("buffer[{}] = {:?}", i, buffer.get(i));
     }
 }
+
 ```
 
 このコードは、`RingBuffer` 構造体を使ってリングバッファを実装しています。この構造体は、ジェネリックな `Vec<Option<T>>` を使ってデータを格納し、`start` と `end` インデックスを使ってバッファの状態を管理します。`push` メソッドはバッファに新しい要素を追加し、`pop` メソッドは要素を取り出し、`get` メソッドは特定のインデックスの要素を参照します。`main` 関数では、リングバッファに要素を追加し、その状態を表示し、最後に要素を取り出して表示しています。

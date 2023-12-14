@@ -1,4 +1,5 @@
 struct RingBuffer<T> {
+    // 固定長でNoneを使用するため、Option<T>を使用します。
     buffer: Vec<Option<T>>,
     size: usize,
     start: usize,
@@ -24,6 +25,7 @@ impl<T> RingBuffer<T> {
 
     // バッファにデータを追加する関数。
     fn push(&mut self, item: T) {
+        // T-> Option<T>に変換
         self.buffer[self.end] = Some(item);
         self.end = (self.end + 1) % self.size;
 
@@ -39,6 +41,7 @@ impl<T> RingBuffer<T> {
             // バッファが空の場合はNoneを返します。
             None
         } else {
+            // self.buffer[self.start]を取り出す（Option<T>)
             let result = self.buffer[self.start].take();
             self.start = (self.start + 1) % self.size;
             result
@@ -50,6 +53,7 @@ impl<T> RingBuffer<T> {
         if index >= self.size {
             None
         } else {
+            // self.buffer[self.start + index]の固定参照を返す
             self.buffer[(self.start + index) % self.size].as_ref()
         }
     }
