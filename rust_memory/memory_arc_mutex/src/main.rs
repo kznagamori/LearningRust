@@ -82,7 +82,7 @@ fn main() {
     let list_clone = Arc::clone(&list);
 
     thread::spawn(move || {
-        let list = list_clone.lock().unwrap();
+        let _list = list_clone.lock().unwrap();
         // ... 作業 ...
     })
     .join()

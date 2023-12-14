@@ -104,7 +104,7 @@ fn main() {
 
     // 8. 所有権の移動
     let rc = Rc::new(10);
-    let weak = Rc::downgrade(&rc); // RcからWeakへ変換
+    let _weak = Rc::downgrade(&rc); // RcからWeakへ変換
     println!("Ownership moved to weak reference");
 
     // 9. 所有権の貸し出し
