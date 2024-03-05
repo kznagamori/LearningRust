@@ -86,5 +86,6 @@ Rustは、システムレベルのプログラミング、組み込みシステ�
   - [Arc\<T>](./rust_memory/memory_arc/README.md)
   - [Arc\<Mutex\<T>>](./rust_memory/memory_arc_mutex/README.md)
 - [アトリビュート](./rust_attribute/README.md)
-- [マクロ](./rust_macro/)
+- [マクロ](./rust_macro/README.md)
+- [Runtimeの静的リンク](./rust_static_link_runtime/README.md)
 
